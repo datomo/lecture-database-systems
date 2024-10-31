@@ -1,0 +1,28 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group = 'com.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.xerial:sqlite-jdbc:3.41.2.2'
+    implementation group: 'org.postgresql', name: 'postgresql', version: '42.7.4'
+
+}
+
+application {
+    // Main class of the application
+    mainClass = 'SQLiteExample'
+}
+
+java {
+    // Ensure we use Java 11 (or specify the version you are using)
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
