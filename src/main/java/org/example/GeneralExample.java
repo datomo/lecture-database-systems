@@ -3,7 +3,7 @@ package org.example;
 import java.sql.*;
 
 @SuppressWarnings("SqlNoDataSourceInspection")
-public class SQLiteExample {
+public class GeneralExample {
     private static final String DB_URL = "jdbc:sqlite:sample.db";
 
     @SuppressWarnings("CallToPrintStackTrace")
@@ -45,7 +45,7 @@ public class SQLiteExample {
     private static void insertWithStatement(Connection connection) throws SQLException {
         String insertSQL = """
             INSERT INTO employees (name, position, salary)
-            VALUES ('Alice', 'Manager', 75000);
+            VALUES ('Klaus', 'Manager', 75000);
         """;
         try (Statement statement = connection.createStatement()) {
             int rowsInserted = statement.executeUpdate(insertSQL);
@@ -54,22 +54,19 @@ public class SQLiteExample {
     }
 
     private static void insertWithBatch(Connection connection) throws SQLException {
-        String insertSQL = """
-            INSERT INTO employees (name, position, salary) VALUES (?, ?, ?);
-        """;
-        try (PreparedStatement pstmt = connection.prepareStatement(insertSQL)) {
 
-            pstmt.setString(1, "Bob");
-            pstmt.setString(2, "Developer");
-            pstmt.setDouble(3, 60000);
-            pstmt.addBatch();
+        try (Statement stmt = connection.createStatement()) {
+            String insert1 = """
+            INSERT INTO employees (name, position, salary) VALUES ('Alice', 'Developer', 75000);
+            """;
+            stmt.addBatch(insert1);
 
-            pstmt.setString(1, "Charlie");
-            pstmt.setString(2, "Analyst");
-            pstmt.setDouble(3, 55000);
-            pstmt.addBatch();
+            String insert2 = """
+            INSERT INTO employees (name, position, salary) VALUES ('Bob', 'Analyst', 55000);
+            """;
+            stmt.addBatch(insert2);
 
-            int[] rowsInserted = pstmt.executeBatch();
+            int[] rowsInserted = stmt.executeBatch();
             System.out.println("Inserted " + rowsInserted.length + " row(s) with Batch.");
         }
     }
@@ -79,9 +76,9 @@ public class SQLiteExample {
             INSERT INTO employees (name, position, salary) VALUES (?, ?, ?);
         """;
         try (PreparedStatement pstmt = connection.prepareStatement(insertSQL)) {
-            pstmt.setString(1, "David");
-            pstmt.setString(2, "Designer");
-            pstmt.setDouble(3, 50000);
+            pstmt.setString(1, "Sarah");
+            pstmt.setString(2, "Developer");
+            pstmt.setDouble(3, 60000);
             int rowsInserted = pstmt.executeUpdate();
             System.out.println("Inserted " + rowsInserted + " row(s) with PreparedStatement.");
         }

@@ -5,7 +5,7 @@ import java.util.Random;
 import java.util.function.Consumer;
 
 @SuppressWarnings("SqlNoDataSourceInspection")
-public class SpeedComparisonPrepared {
+public class SpeedComparisonPostgres {
 
     private static final String DB_URL = "jdbc:postgresql://localhost:5432/mydatabase";
     private static final String USER = "myuser";
@@ -24,13 +24,13 @@ public class SpeedComparisonPrepared {
                 createTables(conn);
 
                 // normal
-                long duration_normal = timeMethod(conn, SpeedComparisonPrepared::insertRows);
+                long duration_normal = timeMethod(conn, SpeedComparisonPostgres::insertRows);
 
                 // batches
-                long duration_batch = timeMethod(conn, SpeedComparisonPrepared::insertRowsBatches);
+                long duration_batch = timeMethod(conn, SpeedComparisonPostgres::insertRowsBatches);
 
                 // prepared batches
-                long duration_prepared = timeMethod(conn, SpeedComparisonPrepared::insertRowsPrepared);
+                long duration_prepared = timeMethod(conn, SpeedComparisonPostgres::insertRowsPrepared);
 
                 System.out.println("Total insertion time sequential: " + duration_normal / 1000.0 + " seconds");
                 System.out.println("Total insertion time batch: " + duration_batch / 1000.0 + " seconds");
