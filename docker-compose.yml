@@ -1,0 +1,15 @@
+services:
+  db:
+    image: postgres:16
+    container_name: my-postgres-db
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: mydatabase
+    ports:
+      - "2467:5432"      # host 2467 -> container's default 5432
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:

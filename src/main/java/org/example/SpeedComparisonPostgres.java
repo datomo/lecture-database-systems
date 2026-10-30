@@ -7,7 +7,7 @@ import java.util.function.Consumer;
 @SuppressWarnings("SqlNoDataSourceInspection")
 public class SpeedComparisonPostgres {
 
-    private static final String DB_URL = "jdbc:postgresql://localhost:5432/mydatabase";
+    private static final String DB_URL = "jdbc:postgresql://localhost:2467/mydatabase";
     private static final String USER = "myuser";
     private static final String PASSWORD = "mypassword";
 
